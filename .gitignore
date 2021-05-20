@@ -7,3 +7,6 @@ jspm_packages
 
 # Webpack directories
 .webpack
+
+# Dynamo local db
+.dynamodb
