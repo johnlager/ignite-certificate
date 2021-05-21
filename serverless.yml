@@ -25,11 +25,18 @@ provider:
   region: sa-east-1
 
 functions:
-  hello:
-    handler: src/functions/hello.handle
+  generateCertificate:
+    handler: src/functions/generateCertificate.handle
     events:
       - http:
-          path: /hello
+          path: /generateCertficate
+          method: POST
+          cors: true
+  verifyCertificate:
+    handler: src/functions/verifyCertificate.handle
+    events:
+      - http:
+          path: /verifyCertificate/{id}
           method: GET
           cors: true
 
