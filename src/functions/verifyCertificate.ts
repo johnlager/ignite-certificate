@@ -22,7 +22,10 @@ export const handle: APIGatewayProxyHandler = async(event) => {
         message: "Certificado válido",
         name: userCertificate.name,
         url: `https://ignite-certifications.s3-sa-east-1.amazonaws.com/${id}.pdf`
-      })
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
     }
   }
 
@@ -30,6 +33,9 @@ export const handle: APIGatewayProxyHandler = async(event) => {
     statusCode: 400,
     body: JSON.stringify({
       message: "Certificado invalido",
-    })
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
   }
 }

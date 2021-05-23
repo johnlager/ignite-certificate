@@ -22,14 +22,17 @@ interface ITemplate {
 }
 
 const compile = async function(data: ITemplate) {
-  const filePath = path.join(process.cwd(), "src", "templates", "certificate.hbs");
+  const filePath = path.join(
+    process.cwd(), 
+    "src", 
+    "templates", 
+    "certificate.hbs",
+  );
   const html = fs.readFileSync(filePath, "utf-8");
 
-  // fills the data in the html
   return handlebars.compile(html)(data);
-}
+};
 
-// (id, name, grade) from event.body 
 export const handle = async (event) => {
   const { id, name, grade } = JSON.parse(event.body) as ICreateCertificate;
 
@@ -56,7 +59,13 @@ export const handle = async (event) => {
 
   // compile using handlebars
 
-  const medalPath = path.join(process.cwd(),"src","templates","selo.png");
+  const medalPath = path.join(
+    process.cwd(),
+    "src",
+    "templates",
+    "selo.png",
+  );
+
   const medal = fs.readFileSync(medalPath, "base64");
 
   const data: ITemplate = {
@@ -64,8 +73,8 @@ export const handle = async (event) => {
     grade,
     name,
     id,
-    medal
-  }
+    medal,
+  };
 
   const content = await compile(data);
 
@@ -87,7 +96,7 @@ export const handle = async (event) => {
     landscape: true,
     path: process.env.IS_OFFLINE ? "certificate.pdf" : null,
     printBackground: true,
-    preferCSSPageSize: true
+    preferCSSPageSize: true,
   });
 
   await browser.close();
@@ -111,7 +120,7 @@ export const handle = async (event) => {
       url: `https://ignite-certifications.s3-sa-east-1.amazonaws.com/${id}.pdf`
     }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   }
 };
